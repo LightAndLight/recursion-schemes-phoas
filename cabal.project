@@ -1,0 +1,4 @@
+packages:
+  ./.
+  ./variant1/variant1
+  ./variant1/variant1-lens

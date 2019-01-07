@@ -1,0 +1,3 @@
+[submodule "variant1"]
+	path = variant1
+	url = git@github.com:qfpl/variant1.git
