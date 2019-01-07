@@ -9,7 +9,11 @@ import Data.Functor.Foldable (Fix(..))
 import Data.Functor.Sum (Sum(..))
 import Data.Variant1 (Variant1)
 
-newtype TypeScheme = Forall { unForall :: forall v. Fix (Variant1 '[TyVarF v, TyF]) }
+data ForallV v
+  = Done (Fix (Variant1 '[TyVarF v, TyF]))
+  | More (v -> ForallV v)
+
+newtype TypeScheme = Forall { unForall :: forall v. ForallV v }
 newtype TyVarF v a = TyVarF v
   deriving (Eq, Show, Functor)
 data TyF a
@@ -17,4 +21,6 @@ data TyF a
   | TyUnitF
   | TyIntF
   deriving (Eq, Show, Functor)
+
 deriveEq1 ''TyF
+deriveEq1 ''TyVarF
